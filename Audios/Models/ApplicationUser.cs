@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Audios.Models
 {
@@ -20,6 +21,7 @@ namespace Audios.Models
         [Display(Name = "Name")]
         public string FullName => $"{FirstName} {LastName}";
 
+        [NotMapped]
         public virtual ICollection<Playlist> Playlists { get; set; }
     }
 }
