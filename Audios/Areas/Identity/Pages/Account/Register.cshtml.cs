@@ -70,6 +70,9 @@ namespace Audios.Areas.Identity.Pages.Account
             public string FullName => $"{FirstName} {LastName}";
 
             [NotMapped]
+            public virtual ICollection<Song> Songs { get; set; }
+
+            [NotMapped]
             public virtual ICollection<Playlist> Playlists { get; set; }
         }
 
