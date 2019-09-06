@@ -15,6 +15,11 @@ namespace Audios.Models
         [Display(Name = "Playlist Name")]
         public string Name { get; set; }
 
+        [Required]
+        public string ApplicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
+
         public virtual ICollection<Song> Songs { get; set; }
     }
 }

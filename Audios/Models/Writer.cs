@@ -15,10 +15,12 @@ namespace Audios.Models
         [Display(Name = "Writer")]
         public string Name { get; set; }
 
+        [Required]
         public int PublisherId { get; set; }
 
         public Publisher Publisher { get; set; }
 
+        [Required]
         public int PROId { get; set; }
 
         public PRO PRO { get; set; }

@@ -11,6 +11,7 @@ namespace Audios.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "Vocal")]
         public string Type { get; set; }
     }

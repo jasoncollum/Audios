@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace Audios.Models
 {
-    public class PlaylistSong
+    public class SongWriter
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public int PlaylistId { get; set; }
-
-        [Required]
         public int SongId { get; set; }
 
         [Required]
-        public int TrackNumber { get; set; }
+        public int WriterId { get; set; }
     }
 }
