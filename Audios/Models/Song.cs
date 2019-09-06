@@ -27,7 +27,7 @@ namespace Audios.Models
 
         [Required]
         [Display(Name = "Audio Url")]
-        public string AudioPath { get; set; }
+        public string AudioUrl { get; set; }
 
         [Required]
         [Display(Name = "Vocal")]
