@@ -16,7 +16,7 @@ namespace Audios.Models
         public string Name { get; set; }
 
         [Required]
-        public string ImagePath { get; set; }
+        public string ImageUrl { get; set; }
 
         public virtual ICollection<Song> Songs { get; set; }
     }
