@@ -21,9 +21,12 @@ namespace Audios.Models
 
         public string Lyrics { get; set; }
 
+        [Required]
         [Display(Name = "One Stop")]
         public bool isOneStop { get; set; }
 
+        [Required]
+        [Display(Name = "Audio Url")]
         public string AudioPath { get; set; }
 
         [Required]
