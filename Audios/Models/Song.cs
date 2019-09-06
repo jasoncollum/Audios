@@ -34,5 +34,7 @@ namespace Audios.Models
         public int ArtistId { get; set; }
 
         public Artist Artist { get; set; }
+
+        public virtual ICollection<Writer> Writers { get; set; }
     }
 }

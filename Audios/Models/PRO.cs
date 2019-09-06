@@ -13,5 +13,7 @@ namespace Audios.Models
 
         [Display(Name = "PRO")]
         public string Name { get; set; }
+
+        public virtual ICollection<Writer> Writers { get; set; }
     }
 }
