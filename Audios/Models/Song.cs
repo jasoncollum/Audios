@@ -12,6 +12,7 @@ namespace Audios.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Song Title")]
         public string Title { get; set; }
 
         public decimal? Bpm { get; set; }
