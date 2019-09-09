@@ -73,5 +73,14 @@ body {
     width: 20px;
 }
 
+.song-index-td img {
+    height: 20px;
+    width: 20px;
+}
+
+.song-index-td a {
+    text-decoration: none !important;
+}
+
 
 
