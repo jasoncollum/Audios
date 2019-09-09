@@ -16,25 +16,25 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Bpm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SearchWords)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lyrics)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.isOneStop)
-            </th>
+            @Html.DisplayNameFor(model => model.Bpm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SearchWords)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lyrics)
+        </th>*@
             @*<th>
-                @Html.DisplayNameFor(model => model.AudioUrl)
-            </th>*@
-            @*<th>
-                @Html.DisplayNameFor(model => model.VocalId)
-            </th>*@
+            @Html.DisplayNameFor(model => model.AudioUrl)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vocal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isOneStop)
             </th>
             <th></th>
         </tr>
@@ -46,25 +46,25 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.Bpm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SearchWords)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lyrics)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.isOneStop)
-            </td>
+            @Html.DisplayFor(modelItem => item.Bpm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SearchWords)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lyrics)
+        </td>*@
             @*<td>
-                @Html.DisplayFor(modelItem => item.AudioUrl)
-            </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.VocalId)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.AudioUrl)
+        </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Artist.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vocal.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isOneStop)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
