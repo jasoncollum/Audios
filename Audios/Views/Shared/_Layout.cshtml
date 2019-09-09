@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/svg/headphones-solid.svg" id="audios-logo"></a>
-                <form asp-controller="" asp-action="" method="get">
+                <form asp-controller="Songs" asp-action="Index" method="get">
                     <div class="form-actions no-color">
                         <input type="text" name="SearchString" placeholder="Search" value="@ViewData["CurrentFilter"]" />
                     </div>

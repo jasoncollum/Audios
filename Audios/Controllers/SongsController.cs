@@ -20,10 +20,31 @@ namespace Audios.Controllers
         }
 
         // GET: Songs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var applicationDbContext = _context.Song.Include(s => s.Artist);
-            return View(await applicationDbContext.ToListAsync());
+            //List search results
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var songs = from s in _context.Song
+                            .Include(s => s.Artist)
+                            .Include(s => s.Vocal)
+                               select s;
+
+                var filteredSongs = songs.Where(s => s.Title.Contains(searchString) 
+                                                  || s.Artist.Name.Contains(searchString)
+                                                  || s.Vocal.Type.Contains(searchString)
+                                                  || s.SearchWords.Contains(searchString));
+
+                return View(await filteredSongs.ToListAsync());
+            }
+            else
+            {
+                // List songs
+                var applicationDbContext = _context.Song
+                .Include(s => s.Artist)
+                .Include(s => s.Vocal);
+                return View(await applicationDbContext.ToListAsync());
+            }
         }
 
         // GET: Songs/Details/5

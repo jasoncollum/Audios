@@ -33,6 +33,8 @@ namespace Audios.Models
         [Display(Name = "Vocal")]
         public int VocalId { get; set; }
 
+        public Vocal Vocal { get; set; }
+
         [Required]
         public int ArtistId { get; set; }
 
