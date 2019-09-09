@@ -62,5 +62,16 @@ body {
     width: 30px;
 }
 
+#searchInput {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+#add-song {
+    height: 20px;
+    width: 20px;
+}
+
 
 

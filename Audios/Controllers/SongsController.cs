@@ -69,7 +69,7 @@ namespace Audios.Controllers
         // GET: Songs/Create
         public IActionResult Create()
         {
-            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "ImageUrl");
+            ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type");
             return View();
         }
 
@@ -86,7 +86,7 @@ namespace Audios.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "ImageUrl", song.ArtistId);
+            ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type", song.VocalId);
             return View(song);
         }
 
