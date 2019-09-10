@@ -13,11 +13,19 @@ namespace Audios.Controllers
     public class SongsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        //private readonly IHostingEnvironment _env;
 
-        public SongsController(ApplicationDbContext context)
+        public SongsController(
+            ApplicationDbContext context
+            //UserManager<ApplicationUser> userManager,
+            //IHostingEnvironment env
+            )
         {
             _context = context;
+            //_env = env;
+            //_userManager = userManager;
         }
+        //private readonly UserManager<ApplicationUser> _userManager;
 
         // GET: Songs
         public async Task<IActionResult> Index(string searchInput)
@@ -79,8 +87,9 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,VocalId,ArtistId")] Song song)
+        public async Task<IActionResult> Create([Bind("Id,Title,Bpm,SearchWords,Lyrics,isOneStop,VocalId,ArtistId")] Song song)
         {
+            //ModelState.Remove("UserId");
             if (ModelState.IsValid)
             {
                 _context.Add(song);
