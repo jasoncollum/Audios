@@ -57,6 +57,7 @@ namespace Audios.Controllers
 
             var song = await _context.Song
                 .Include(s => s.Artist)
+                .Include(s => s.Vocal)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (song == null)
             {
