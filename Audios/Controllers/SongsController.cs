@@ -85,31 +85,31 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,ImageUrl,VocalId,ArtistId")]Song song, IFormFile imageFile, IFormFile audioFile)
+        public async Task<IActionResult> Create([Bind("Id,Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,ImageUrl,VocalId,ArtistId")]Song song, IFormFile file)
         {
-            if (imageFile != "")
-            {
-                var path = Path.Combine(
-                  Directory.GetCurrentDirectory(), "wwwroot",
-                  "Images", imageFile.FileName);
+            //if (file)
+            //{
+            //    var path = Path.Combine(
+            //      Directory.GetCurrentDirectory(), "wwwroot",
+            //      "Images", file.FileName);
 
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-            }
+            //    using (var stream = new FileStream(path, FileMode.Create))
+            //    {
+            //        await file.CopyToAsync(stream);
+            //    }
+            //}
 
-            if (audioFile != "")
-            {
-                var path = Path.Combine(
-                  Directory.GetCurrentDirectory(), "wwwroot",
-                  "audio", audioFile.FileName);
+            //if (file)
+            //{
+            //    var path = Path.Combine(
+            //      Directory.GetCurrentDirectory(), "wwwroot",
+            //      "audio", audioFile.FileName);
 
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-            }
+            //    using (var stream = new FileStream(path, FileMode.Create))
+            //    {
+            //        await file.CopyToAsync(stream);
+            //    }
+            //}
 
             if (ModelState.IsValid)
             {
