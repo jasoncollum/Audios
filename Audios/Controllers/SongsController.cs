@@ -74,8 +74,9 @@ namespace Audios.Controllers
         }
 
         // GET: Songs/Create
-        public IActionResult Create()
+        public IActionResult Create(Artist artistObj)
         {
+            ViewBag.Artist = artistObj;
             ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type");
             return View();
         }

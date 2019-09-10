@@ -71,18 +71,18 @@ namespace Audios.Controllers
                 {
                     await file.CopyToAsync(stream);
                 }
+                artist.ImageUrl = "Images/" + file.FileName;
 
                 if (ModelState.IsValid)
                 {
                     _context.Add(artist);
                     await _context.SaveChangesAsync();
-                    
-                    return RedirectToAction("Create", "Songs", new { ArtistId = artist.Id});
+                 
+                    return RedirectToAction("Create", "Songs", new { artistObj = artist });
                 }
             }
 
-
-            return RedirectToAction("Create", "Songs", new { ArtistId = artistMatch.Id });
+            return RedirectToAction("Create", "Songs", new { ArtistObj = artistMatch });
         }
 
         // GET: Artists/Edit/5
