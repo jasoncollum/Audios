@@ -28,16 +28,6 @@
                 <span asp-validation-for="SearchWords" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Artist.ImageUrl" class="control-label"></label>
-                <input asp-for="Artist.ImageUrl" class="form-control" />
-                <span asp-validation-for="Artist.ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AudioUrl" class="control-label"></label>
-                <input asp-for="AudioUrl" class="form-control" />
-                <span asp-validation-for="AudioUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Lyrics" class="control-label"></label>
                 <textarea asp-for="Lyrics" class="form-control"></textarea>
                 <span asp-validation-for="Lyrics" class="text-danger"></span>
@@ -57,6 +47,20 @@
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="isOneStop" /> @Html.DisplayNameFor(model => model.isOneStop)
                 </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.ImageUrl" class="control-label"></label>
+                <input type="file" name="file" id="file" />
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Artist.ImageUrl" class="control-label"></label>
+            <input asp-for="Artist.ImageUrl" class="form-control" />
+            <span asp-validation-for="Artist.ImageUrl" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="AudioUrl" class="control-label"></label>
+                <input asp-for="AudioUrl" class="form-control" />
+                <span asp-validation-for="AudioUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Submit" class="btn btn-primary" />

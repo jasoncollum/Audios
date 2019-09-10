@@ -26,8 +26,8 @@ namespace Audios.Models
         [Display(Name = "One Stop")]
         public bool isOneStop { get; set; }
 
-        [Required]
-        [Display(Name = "Audio Url")]
+        //[Required]
+        [Display(Name = "Audio")]
         public string AudioUrl { get; set; }
 
         [Required]
