@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Audios.Data;
 using Audios.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Audios.Controllers
 {
@@ -54,15 +56,33 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ImageUrl")] Artist artist)
+        public async Task<IActionResult> Create([Bind("Id,Name,ImageUrl")] Artist artist, IFormFile file)
         {
-            if (ModelState.IsValid)
+            var artists = await _context.Artist.ToListAsync();
+            var artistMatch = artists.FirstOrDefault(a => a.Name == artist.Name);
+
+            if (artistMatch == null)
             {
-                _context.Add(artist);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var path = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot",
+                  "Images", file.FileName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(artist);
+                    await _context.SaveChangesAsync();
+                    
+                    return RedirectToAction("Create", "Songs", new { ArtistId = artist.Id});
+                }
             }
-            return View(artist);
+
+
+            return RedirectToAction("Create", "Songs", new { ArtistId = artistMatch.Id });
         }
 
         // GET: Artists/Edit/5
