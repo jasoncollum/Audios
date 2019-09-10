@@ -6,9 +6,8 @@
 
 @*<h1>Create</h1>*@
 
-@*<h4>New Song</h4>
-    <hr />*@
-
+<h4><span class="grey-text">Artist Details</span> Song Details</h4>
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
@@ -50,23 +49,23 @@
                 </label>
             </div>
             @*<div class="form-group">
-                <label class="control-label">Artist Image</label>
-                <input type="file" name="file" />
-            </div>*@
+                    <label class="control-label">Artist Image</label>
+                    <input type="file" name="file" />
+                </div>*@
             @*<div class="form-group">
-                <label class="control-label">Audio</label>
-                <input type="file" name="file" />
-            </div>*@
+                    <label class="control-label">Audio</label>
+                    <input type="file" name="file" />
+                </div>*@
             @*<div class="form-group">
-            <label asp-for="Artist.ImageUrl" class="control-label"></label>
-            <input asp-for="Artist.ImageUrl" class="form-control" />
-            <span asp-validation-for="Artist.ImageUrl" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="Artist.ImageUrl" class="control-label"></label>
+                    <input asp-for="Artist.ImageUrl" class="form-control" />
+                    <span asp-validation-for="Artist.ImageUrl" class="text-danger"></span>
+                </div>*@
             @*<div class="form-group">
-                <label asp-for="AudioUrl" class="control-label"></label>
-                <input asp-for="AudioUrl" class="form-control" />
-                <span asp-validation-for="AudioUrl" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="AudioUrl" class="control-label"></label>
+                    <input asp-for="AudioUrl" class="form-control" />
+                    <span asp-validation-for="AudioUrl" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
