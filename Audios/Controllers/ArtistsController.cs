@@ -59,7 +59,8 @@ namespace Audios.Controllers
         public async Task<IActionResult> Create([Bind("Id,Name,ImageUrl")] Artist artist, IFormFile file)
         {
             var artists = await _context.Artist.ToListAsync();
-            var artistMatch = artists.FirstOrDefault(a => a.Name == artist.Name);
+            Artist artistMatch = null;
+            artistMatch = artists.FirstOrDefault(a => a.Name == artist.Name);
 
             if (artistMatch == null)
             {
@@ -67,14 +68,15 @@ namespace Audios.Controllers
                   Directory.GetCurrentDirectory(), "wwwroot",
                   "Images", file.FileName);
 
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
                 artist.ImageUrl = "Images/" + file.FileName;
-
+                ModelState.Remove("ImageUrl");
                 if (ModelState.IsValid)
                 {
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
                     _context.Add(artist);
                     await _context.SaveChangesAsync();
 

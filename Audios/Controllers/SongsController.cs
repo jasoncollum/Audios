@@ -87,38 +87,31 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,ImageUrl,VocalId,ArtistId")]Song song, IFormFile file)
+        public async Task<IActionResult> Create([Bind("Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,ImageUrl,VocalId,ArtistId")]Song song, IFormFile file)
         {
-            //if (file)
-            //{
-            //    var path = Path.Combine(
-            //      Directory.GetCurrentDirectory(), "wwwroot",
-            //      "Images", file.FileName);
 
-            //    using (var stream = new FileStream(path, FileMode.Create))
-            //    {
-            //        await file.CopyToAsync(stream);
-            //    }
-            //}
-
-            //if (file)
-            //{
-            //    var path = Path.Combine(
-            //      Directory.GetCurrentDirectory(), "wwwroot",
-            //      "audio", audioFile.FileName);
-
-            //    using (var stream = new FileStream(path, FileMode.Create))
-            //    {
-            //        await file.CopyToAsync(stream);
-            //    }
-            //}
-
-            if (ModelState.IsValid)
+            if (!_context.Song.Any(s => s.Title == song.Title && s.ArtistId == song.ArtistId))
             {
-                _context.Add(song);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var path = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot",
+                  "audiofiles", file.FileName);
+
+                song.AudioUrl = "Audiofiles/" + file.FileName;
+                ModelState.Remove("AudioUrl");
+
+                if (ModelState.IsValid)
+                {
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    _context.Add(song);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
             ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type", song.VocalId);
             return View(song);
         }
