@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 using Audios.Data;
 using Audios.Models;
 
@@ -14,9 +16,12 @@ namespace Audios.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public SongsController(ApplicationDbContext context)
+        public SongsController(
+            ApplicationDbContext context
+            )
         {
             _context = context;
+
         }
 
         // GET: Songs
@@ -59,6 +64,7 @@ namespace Audios.Controllers
                 .Include(s => s.Artist)
                 .Include(s => s.Vocal)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (song == null)
             {
                 return NotFound();
@@ -68,10 +74,12 @@ namespace Audios.Controllers
         }
 
         // GET: Songs/Create
-        public IActionResult Create()
+        public IActionResult Create(int Id)
         {
+            var song = new Song() { ArtistId = Id };
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Name", "ImageUrl");
             ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type");
-            return View();
+            return View(song);
         }
 
         // POST: Songs/Create
@@ -79,8 +87,32 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,VocalId,ArtistId")] Song song)
+        public async Task<IActionResult> Create([Bind("Id,Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,ImageUrl,VocalId,ArtistId")]Song song, IFormFile file)
         {
+            //if (file)
+            //{
+            //    var path = Path.Combine(
+            //      Directory.GetCurrentDirectory(), "wwwroot",
+            //      "Images", file.FileName);
+
+            //    using (var stream = new FileStream(path, FileMode.Create))
+            //    {
+            //        await file.CopyToAsync(stream);
+            //    }
+            //}
+
+            //if (file)
+            //{
+            //    var path = Path.Combine(
+            //      Directory.GetCurrentDirectory(), "wwwroot",
+            //      "audio", audioFile.FileName);
+
+            //    using (var stream = new FileStream(path, FileMode.Create))
+            //    {
+            //        await file.CopyToAsync(stream);
+            //    }
+            //}
+
             if (ModelState.IsValid)
             {
                 _context.Add(song);
