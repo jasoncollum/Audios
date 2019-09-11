@@ -77,12 +77,14 @@ namespace Audios.Controllers
                 {
                     _context.Add(artist);
                     await _context.SaveChangesAsync();
-                 
-                    return RedirectToAction("Create", "Songs", new { artistObj = artist });
+
+                    int id = artist.Id;                
+                    return RedirectToAction("Create", "Songs", new { Id = id });
                 }
             }
 
-            return RedirectToAction("Create", "Songs", new { ArtistObj = artistMatch });
+            int matchId = artistMatch.Id;
+            return RedirectToAction("Create", "Songs", new { Id = matchId });
         }
 
         // GET: Artists/Edit/5

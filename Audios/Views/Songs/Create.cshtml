@@ -4,10 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-@{ 
-    var Artist = ViewBag.Artist;
-}
-
 <h4><span class="grey-text">Artist Details</span> Song Details</h4>
 <hr />
 <div class="row">
@@ -20,8 +16,9 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label"></label>
-                <input class="form-control" value="@Artist.Id" />              
+                <label asp-for="ArtistId" class="control-label">Artist</label>
+                <select asp-for="ArtistId" class="form-control" asp-items="ViewBag.ArtistId">
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="SearchWords" class="control-label"></label>
@@ -50,7 +47,7 @@
                 </label>
             </div>
             <div class="form-group">
-                    <label class="control-label">Audio</label>
+                    <label class="control-label">Audio Upload</label>
                     <input type="file" name="file" />
                 </div>
             <div class="form-group">

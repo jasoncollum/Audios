@@ -74,11 +74,12 @@ namespace Audios.Controllers
         }
 
         // GET: Songs/Create
-        public IActionResult Create(Artist artistObj)
+        public IActionResult Create(int Id)
         {
-            ViewBag.Artist = artistObj;
+            var song = new Song() { ArtistId = Id };
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Name", "ImageUrl");
             ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type");
-            return View();
+            return View(song);
         }
 
         // POST: Songs/Create
