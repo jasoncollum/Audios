@@ -129,7 +129,8 @@ namespace Audios.Controllers
             {
                 return NotFound();
             }
-            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "ImageUrl", song.ArtistId);
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Name", song.ArtistId);
+            ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type", song.VocalId);
             return View(song);
         }
 
