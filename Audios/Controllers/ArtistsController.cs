@@ -68,14 +68,15 @@ namespace Audios.Controllers
                   Directory.GetCurrentDirectory(), "wwwroot",
                   "Images", file.FileName);
 
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
                 artist.ImageUrl = "Images/" + file.FileName;
                 ModelState.Remove("ImageUrl");
                 if (ModelState.IsValid)
                 {
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
                     _context.Add(artist);
                     await _context.SaveChangesAsync();
 
