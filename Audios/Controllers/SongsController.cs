@@ -94,9 +94,9 @@ namespace Audios.Controllers
             {
                 var path = Path.Combine(
                   Directory.GetCurrentDirectory(), "wwwroot",
-                  "audiofiles", file.FileName);
+                  "audio-files", file.FileName);
 
-                song.AudioUrl = "Audiofiles/" + file.FileName;
+                song.AudioUrl = "Audio-files/" + file.FileName;
                 ModelState.Remove("AudioUrl");
 
                 if (ModelState.IsValid)
