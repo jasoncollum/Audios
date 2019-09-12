@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\audiofiles\" />
+    <Folder Include="wwwroot\audio-files\" />
     <Folder Include="wwwroot\svg\" />
   </ItemGroup>
 
