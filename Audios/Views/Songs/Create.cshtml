@@ -16,8 +16,8 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArtistId" class="control-label">Artist</label>
-                <select asp-for="ArtistId" class="form-control" asp-items="ViewBag.ArtistId">
+                <label hidden asp-for="ArtistId" class="control-label">Artist</label>
+                <select hidden asp-for="ArtistId" class="form-control" asp-items="ViewBag.ArtistId">
                 </select>
             </div>
             <div class="form-group">
