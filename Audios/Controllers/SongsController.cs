@@ -27,7 +27,7 @@ namespace Audios.Controllers
         }
 
         // GET: Songs
-        public async Task<IActionResult> Index(string searchInput)
+        public async Task<IActionResult> Index(string searchInput, bool exists, string message)
         {
             //List search results
             if (!String.IsNullOrEmpty(searchInput))
@@ -50,6 +50,8 @@ namespace Audios.Controllers
                 var songs = _context.Song
                 .Include(s => s.Artist)
                 .Include(s => s.Vocal);
+                ViewData["exists"] = exists;
+                ViewData["message"] = message;
                 return View(await songs.ToListAsync());
             }
         }
@@ -92,7 +94,14 @@ namespace Audios.Controllers
         public async Task<IActionResult> Create([Bind("Title,Bpm,SearchWords,Lyrics,isOneStop,AudioUrl,ImageUrl,VocalId,ArtistId")]Song song, IFormFile file)
         {
 
-            if (!_context.Song.Any(s => s.Title == song.Title && s.ArtistId == song.ArtistId))
+            if (_context.Song.Any(s => s.Title == song.Title && s.ArtistId == song.ArtistId))
+            {
+                Artist Artist = _context.Artist.FirstOrDefault(a => a.Id == song.ArtistId);
+                //bool exists = true;
+                //string message = $"{song.Title} by {Artist.Name} is already in Audios";
+                return RedirectToAction("Index", "Songs", new { exists = true, message = $"{song.Title} by {Artist.Name} is already in Audios" } );
+            }
+            else
             {
                 var path = Path.Combine(
                   Directory.GetCurrentDirectory(), "wwwroot",
@@ -112,10 +121,12 @@ namespace Audios.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
+                else
+                {
+                    ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type", song.VocalId);
+                    return View(song);
+                }
             }
-
-            ViewData["VocalId"] = new SelectList(_context.Vocal, "Id", "Type", song.VocalId);
-            return View(song);
         }
 
         // GET: Songs/Edit/5
