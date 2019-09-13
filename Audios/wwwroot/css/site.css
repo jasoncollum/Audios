@@ -82,9 +82,11 @@ body {
     text-decoration: none !important;
 }
 
-.grey-text {
-    color: grey;
+.secondary-text {
+    color: #4E5D6C;
 }
 
-
+.exists-message {
+    color: #5bc0de;
+}
 

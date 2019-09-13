@@ -11,6 +11,16 @@
         <img src="~/svg/plus-solid.svg" id="add-song">
     </a>
 </p>
+
+@*@{ 
+    var message = ViewBag.existsMessage;
+}*@
+
+@if  (ViewBag.exists == true)
+{
+    <p class="exists-message">@ViewBag.message</p>
+}
+
 <table class="table">
     <thead>
         <tr>
