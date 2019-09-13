@@ -9,9 +9,11 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Audios.Data;
 using Audios.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Audios.Controllers
 {
+    [Authorize]
     public class SongsController : Controller
     {
         private readonly ApplicationDbContext _context;
