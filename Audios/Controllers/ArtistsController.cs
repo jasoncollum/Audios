@@ -66,23 +66,30 @@ namespace Audios.Controllers
 
             if (artistMatch == null)
             {
-                var path = Path.Combine(
-                  Directory.GetCurrentDirectory(), "wwwroot",
-                  "Images", file.FileName);
-
-                artist.ImageUrl = "Images/" + file.FileName;
                 ModelState.Remove("ImageUrl");
                 if (ModelState.IsValid)
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    if (file == null)
                     {
-                        await file.CopyToAsync(stream);
+                        artist.ImageUrl = "Images/default-image.png";
+                    }
+                    else
+                    {
+                        var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot",
+                        "Images", file.FileName);
+                        artist.ImageUrl = "Images/" + file.FileName;
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
                     }
 
                     _context.Add(artist);
                     await _context.SaveChangesAsync();
 
-                    int id = artist.Id;                
+                    int id = artist.Id;
                     return RedirectToAction("Create", "Songs", new { Id = id });
                 }
             }
@@ -112,7 +119,7 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageUrl")] Artist artist)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageUrl")] Artist artist, IFormFile file)
         {
             if (id != artist.Id)
             {
@@ -123,6 +130,19 @@ namespace Audios.Controllers
             {
                 try
                 {
+                    if (file != null)
+                    {
+                        var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot",
+                        "Images", file.FileName);
+                        artist.ImageUrl = "Images/" + file.FileName;
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                    }
+
                     _context.Update(artist);
                     await _context.SaveChangesAsync();
                 }
