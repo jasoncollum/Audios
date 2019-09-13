@@ -66,23 +66,30 @@ namespace Audios.Controllers
 
             if (artistMatch == null)
             {
-                var path = Path.Combine(
-                  Directory.GetCurrentDirectory(), "wwwroot",
-                  "Images", file.FileName);
-
-                artist.ImageUrl = "Images/" + file.FileName;
                 ModelState.Remove("ImageUrl");
                 if (ModelState.IsValid)
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    if (file == null)
                     {
-                        await file.CopyToAsync(stream);
+                        artist.ImageUrl = "Images/default-image.png";
+                    }
+                    else
+                    {
+                        var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot",
+                        "Images", file.FileName);
+                        artist.ImageUrl = "Images/" + file.FileName;
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
                     }
 
                     _context.Add(artist);
                     await _context.SaveChangesAsync();
 
-                    int id = artist.Id;                
+                    int id = artist.Id;
                     return RedirectToAction("Create", "Songs", new { Id = id });
                 }
             }
