@@ -90,3 +90,7 @@ body {
     color: #5bc0de;
 }
 
+/* ---------- AUDIO PLAYER ---------- */
+.audio-container {
+    background-color: white;
+}

@@ -38,7 +38,9 @@
             @Html.DisplayNameFor(model => model.AudioUrl)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AudioUrl)
+                <audio class="audio-container" controls>
+                    <source src="@Model.AudioUrl" type="audio/mp3">
+                </audio>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Lyrics)

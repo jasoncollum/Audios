@@ -107,7 +107,7 @@ namespace Audios.Controllers
                   Directory.GetCurrentDirectory(), "wwwroot",
                   "audio-files", file.FileName);
 
-                song.AudioUrl = "Audio-files/" + file.FileName;
+                song.AudioUrl = "/audio-files/" + file.FileName;
                 ModelState.Remove("AudioUrl");
 
                 if (ModelState.IsValid)

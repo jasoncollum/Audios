@@ -71,14 +71,14 @@ namespace Audios.Controllers
                 {
                     if (file == null)
                     {
-                        artist.ImageUrl = "Images/default-image.png";
+                        artist.ImageUrl = "/images/default-image.png";
                     }
                     else
                     {
                         var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot",
-                        "Images", file.FileName);
-                        artist.ImageUrl = "Images/" + file.FileName;
+                        "images", file.FileName);
+                        artist.ImageUrl = "/images/" + file.FileName;
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
@@ -134,8 +134,8 @@ namespace Audios.Controllers
                     {
                         var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot",
-                        "Images", file.FileName);
-                        artist.ImageUrl = "Images/" + file.FileName;
+                        "images", file.FileName);
+                        artist.ImageUrl = "/images/" + file.FileName;
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
