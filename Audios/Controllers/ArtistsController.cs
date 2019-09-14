@@ -10,6 +10,9 @@ using Audios.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using Amazon.S3;
+using Amazon;
+using Amazon.S3.Transfer;
 
 namespace Audios.Controllers
 {
@@ -71,20 +74,33 @@ namespace Audios.Controllers
                 {
                     if (file == null)
                     {
-                        artist.ImageUrl = "Images/default-image.png";
+                        artist.ImageUrl = "/images/default-image.png";
                     }
                     else
                     {
                         var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot",
-                        "Images", file.FileName);
-                        artist.ImageUrl = "Images/" + file.FileName;
+                        "images", file.FileName);
+                        artist.ImageUrl = "/images/" + file.FileName;
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await file.CopyToAsync(stream);
                         }
+
+                        //AWS
+                        //try
+                        //{
+                        //    await UploadFileToS3(file);
+                        //}
+                        //catch(Exception ex)
+                        //{
+                        //    return NotFound();
+                        //}
+
+                        //artist.ImageUrl = $"https://{BucketInfo.Bucket}.s3.us-east-2.amazonaws.com/{file.FileName}";
                     }
+
 
                     _context.Add(artist);
                     await _context.SaveChangesAsync();
@@ -134,8 +150,8 @@ namespace Audios.Controllers
                     {
                         var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot",
-                        "Images", file.FileName);
-                        artist.ImageUrl = "Images/" + file.FileName;
+                        "images", file.FileName);
+                        artist.ImageUrl = "/images/" + file.FileName;
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
@@ -195,5 +211,25 @@ namespace Audios.Controllers
         {
             return _context.Artist.Any(e => e.Id == id);
         }
+
+        //public async Task UploadFileToS3(IFormFile file)
+        //{
+        //    using (var client = new AmazonS3Client(BucketInfo.AWSKey, BucketInfo.AWSSKey, RegionEndpoint.USEast2))
+        //    {
+        //        using (var newMemoryStream = new MemoryStream())
+        //        {
+        //            file.CopyTo(newMemoryStream);
+        //            var uploadRequest = new TransferUtilityUploadRequest
+        //            {
+        //                InputStream = newMemoryStream,
+        //                Key = file.FileName,
+        //                BucketName = BucketInfo.Bucket,
+        //                CannedACL = S3CannedACL.PublicRead
+        //            };
+        //            var fileTransferUtility = new TransferUtility(client);
+        //            await fileTransferUtility.UploadAsync(uploadRequest);
+        //        }
+        //    }
+        //}
     }
 }
