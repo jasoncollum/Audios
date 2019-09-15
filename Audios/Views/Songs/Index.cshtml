@@ -63,8 +63,11 @@
             </div>
         </div>
 
+
         <div class="col-md song-column">
             @*PLAYLIST*@
+
+            @* ...This is the targe div... ---------------------------------------------- *@
             <div class="playlist-wrapper row">
                 <div class="container row song-index-playlist">
                     <h1>Playlist</h1>
@@ -76,10 +79,10 @@
                     </p>
                 </div>
 
-                @if (ViewBag.exists == true)
+                @*@if (ViewBag.exists == true)
                 {
                     <p class="exists-message">@ViewBag.message</p>
-                }
+                }*@
                 @foreach (var item in Model)
                 {
                     <div class="container song-image-container row">
