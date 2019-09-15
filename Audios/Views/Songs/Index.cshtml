@@ -4,59 +4,118 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Audios</h1>
 
-<p>
-    <a asp-controller="Artists" asp-action="Create">
-        <img src="~/svg/plus-solid.svg" id="add-song">
-    </a>
-</p>
 
-@if (ViewBag.exists == true)
-{
-    <p class="exists-message">@ViewBag.message</p>
-}
+<div id="song-index-container" class="container">
+    <div class="row">
+        <div class="col-md song-column">
+            @*SONG LIST*@
+            <div class="songlist-wrapper row">
+                <div class="container row song-index-audios">
+                    <h1>Audios</h1>
 
-@foreach (var item in Model)
-{
-    <div class="container songlist-container row">
-        @* Artist Image *@
+                    <p class="add-song-plus">
+                        <a asp-controller="Artists" asp-action="Create">
+                            <img src="~/svg/plus-solid.svg" id="add-song">
+                        </a>
+                    </p>
+                </div>
 
-        <img class="artist-image" src="@item.Artist.ImageUrl" />
-        <div class="text-and-player">
-            <div class="player-text">
-                <p class="title-artist">@item.Title  / @item.Artist.Name</p>
+                @if (ViewBag.exists == true)
+                {
+                    <p class="exists-message">@ViewBag.message</p>
+                }
+                @foreach (var item in Model)
+                {
+                    <div class="container song-image-container row">
+                        @* Artist Image *@
+
+                        <img class="artist-image" src="@item.Artist.ImageUrl" />
+                        <div class="text-and-player">
+                            <div class="player-text">
+                                <p class="title-artist">@item.Title  / @item.Artist.Name</p>
+                            </div>
+                            <div class="song-container row">
+
+                                @* Audio Player *@
+                                <div class="audio-container">
+                                    <audio class="audio-player" controls>
+                                        <source src="@item.AudioUrl" type="audio/mp3">
+                                    </audio>
+                                </div>
+                                @* Links *@
+                                @*<div class="song-index-td">*@
+                                <div class="song-index-links">
+                                    <a asp-action="Details" asp-route-id="@item.Id">
+                                        <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+                                    </a>
+                                    <a asp-action="" asp-route-id="@item.Id">
+                                        <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
+                                    </a>
+                                    @*<a asp-action="" asp-route-id="@item.Id">
+                                <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
+                            </a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="song-container row">
+        </div>
 
-                @* Audio Player *@
-                <div class="audio-container">
-                    <audio class="audio-player" controls>
-                        <source src="@item.AudioUrl" type="audio/mp3">
-                    </audio>
+        <div class="col-md song-column">
+            @*PLAYLIST*@
+            <div class="playlist-wrapper row">
+                <div class="container row song-index-playlist">
+                    <h1>Playlist</h1>
+
+                    <p class="add-song-plus">
+                        <a asp-controller="Artists" asp-action="Create">
+                            <img src="~/svg/plus-solid.svg" id="add-song">
+                        </a>
+                    </p>
                 </div>
-                @* Links *@
-                @*<div class="song-index-td">*@
-                <div class="song-index-links">
-                    <a asp-action="Details" asp-route-id="@item.Id">
-                        <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
-                    </a>
-                    <a asp-action="" asp-route-id="@item.Id">
-                        <img class="song-index-icon" src="~/svg/arrow-circle-down-solid.svg">
-                    </a>
-                    <a asp-action="" asp-route-id="@item.Id">
-                        <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
-                    </a>
-                </div>
+
+                @if (ViewBag.exists == true)
+                {
+                    <p class="exists-message">@ViewBag.message</p>
+                }
+                @foreach (var item in Model)
+                {
+                    <div class="container song-image-container row">
+                        @* Artist Image *@
+
+                        <img class="artist-image" src="@item.Artist.ImageUrl" />
+                        <div class="text-and-player">
+                            <div class="player-text">
+                                <p class="title-artist">@item.Title  / @item.Artist.Name</p>
+                            </div>
+                            <div class="song-container row">
+
+                                @* Audio Player *@
+                                <div class="audio-container">
+                                    <audio class="audio-player" controls>
+                                        <source src="@item.AudioUrl" type="audio/mp3">
+                                    </audio>
+                                </div>
+                                @* Links *@
+                                @*<div class="song-index-td">*@
+                                <div class="song-index-links">
+                                    <a asp-action="Details" asp-route-id="@item.Id">
+                                        <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+                                    </a>
+                                    <a asp-action="" asp-route-id="@item.Id">
+                                        <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
+                                    </a>
+                                    @*<a asp-action="" asp-route-id="@item.Id">
+                                <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
+                            </a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-}
-@*@Html.DisplayFor(modelItem => item.Title)
-
-    @Html.DisplayFor(modelItem => item.AudioUrl)
-
-    @Html.DisplayFor(modelItem => item.Artist.Name)
-
-    @Html.DisplayFor(modelItem => item.isOneStop)*@
-
+</div>

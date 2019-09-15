@@ -60,6 +60,14 @@ body {
 
 /* Custom styles
 -------------------------------------------------- */
+.nav-greeting {
+    margin-top: 3px;
+}
+
+.add-song-plus {
+    margin: 12px;
+}
+
 #audios-logo {
     height: 30px;
     width: 30px;
@@ -94,12 +102,37 @@ body {
 }
 
 /* ---------- SONG INDEX ---------- */
-.songlist-container {
-    width: 530px;
+#song-index-container {
+    max-width: 1200px;
+    margin: 0, auto;
+    /*width: 100%;*/
+}
+
+.song-index-audios,
+.song-index-playlist {
+    margin-left: -30px;
+}
+
+.song-column {
+    max-width: 550px;
+}
+
+.songlist-wrapper {
+    width: 500px;
+    margin-left: 20px;
+}
+
+.playlist-wrapper {
+    width: 500px;
+    margin-left: 30px;
+}
+
+.song-image-container {
+    width: 500px;
     margin-bottom: 2px;
     padding: 0;
-    border-radius: 15px;
-    border-radius: 15px;
+    /*border-radius: 15px;
+    border-radius: 15px;*/
 }
 
 .artist-image {
@@ -157,4 +190,8 @@ audio:focus {
 .song-index-icon {
     height: 18px;
     width: 18px;
+}
+
+.playlist-arrow {
+    transform: rotate(270deg);
 }
