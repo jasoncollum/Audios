@@ -27,7 +27,7 @@
                 }
                 @foreach (var item in Model)
                 {
-                    <div class="container song-image-container row">
+                    <div id="@item.Id" class="container song-image-container row">
                         @* Artist Image *@
 
                         <img class="artist-image" src="@item.Artist.ImageUrl" />
