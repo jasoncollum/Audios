@@ -101,11 +101,18 @@ body {
     color: #5bc0de;
 }
 
+.chrome-grey {
+    color: #F1F3F4;
+}
+
+.bg-chrome-grey {
+    background-color: #F1F3F4;
+}
+
 /* ---------- SONG INDEX ---------- */
 #song-index-container {
     max-width: 1200px;
     margin: 0, auto;
-    /*width: 100%;*/
 }
 
 .song-index-audios,
@@ -131,14 +138,16 @@ body {
     width: 500px;
     margin-bottom: 2px;
     padding: 0;
-    /*border-radius: 15px;
-    border-radius: 15px;*/
+    border-top-right-radius: 10px;
+    /*border-radius: 10px;*/
+    background-color: #F1F3F4;
 }
 
 .artist-image {
     height: 80px;
     width: 80px;
     margin: 0;
+    border: 1px solid grey;
 }
 
 .text-and-player {
@@ -149,7 +158,6 @@ body {
 
 .player-text {
     color: dimgrey;
-    background-color: #F7F7F7;
     font-size: 15px;
     height: 25px;
     width: 450px;
@@ -160,7 +168,6 @@ body {
 .song-container {
     height: 55px;
     width: 450px;
-    background-color: #F7F7F7;
     margin: 0;
     overflow: hidden;
 }
@@ -195,3 +202,5 @@ audio:focus {
 .playlist-arrow {
     transform: rotate(270deg);
 }
+/* --- drap drop styling --- */
+

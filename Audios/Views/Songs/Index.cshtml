@@ -12,7 +12,7 @@
             @*SONG LIST*@
             <div class="songlist-wrapper row">
                 <div class="container row song-index-audios">
-                    <h1>Audios</h1>
+                    <h2 class="chrome-grey">Audios</h2>
 
                     <p class="add-song-plus">
                         <a asp-controller="Artists" asp-action="Create">
@@ -27,7 +27,7 @@
                 }
                 @foreach (var item in Model)
                 {
-                    <div class="container song-image-container row">
+                    <div id="@item.Id" class="container song-image-container row">
                         @* Artist Image *@
 
                         <img class="artist-image" src="@item.Artist.ImageUrl" />
@@ -53,8 +53,8 @@
                                         <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
                                     </a>
                                     @*<a asp-action="" asp-route-id="@item.Id">
-                                <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
-                            </a>*@
+                                            <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
+                                        </a>*@
                                 </div>
                             </div>
                         </div>
@@ -63,11 +63,14 @@
             </div>
         </div>
 
+
         <div class="col-md song-column">
             @*PLAYLIST*@
+
+            @* ...This is the targe div... ---------------------------------------------- *@
             <div class="playlist-wrapper row">
                 <div class="container row song-index-playlist">
-                    <h1>Playlist</h1>
+                    <h2 class="chrome-grey">Playlist</h2>
 
                     <p class="add-song-plus">
                         <a asp-controller="Artists" asp-action="Create">
@@ -76,46 +79,53 @@
                     </p>
                 </div>
 
-                @if (ViewBag.exists == true)
-                {
-                    <p class="exists-message">@ViewBag.message</p>
-                }
-                @foreach (var item in Model)
-                {
-                    <div class="container song-image-container row">
-                        @* Artist Image *@
+                @*@if (ViewBag.exists == true)
+                    {
+                        <p class="exists-message">@ViewBag.message</p>
+                    }*@
 
-                        <img class="artist-image" src="@item.Artist.ImageUrl" />
-                        <div class="text-and-player">
-                            <div class="player-text">
-                                <p class="title-artist">@item.Title  / @item.Artist.Name</p>
-                            </div>
-                            <div class="song-container row">
+                <div id="song-cards">
+                    @foreach (var item in Model)
+                    {
+                        <div class="container song-image-container row song-card">
+                            @* Artist Image *@
 
-                                @* Audio Player *@
-                                <div class="audio-container">
-                                    <audio class="audio-player" controls>
-                                        <source src="@item.AudioUrl" type="audio/mp3">
-                                    </audio>
+                            <img class="artist-image" src="@item.Artist.ImageUrl" />
+                            <div class="text-and-player">
+                                <div class="player-text">
+                                    <p class="title-artist">@item.Title  / @item.Artist.Name</p>
                                 </div>
-                                @* Links *@
-                                @*<div class="song-index-td">*@
-                                <div class="song-index-links">
-                                    <a asp-action="Details" asp-route-id="@item.Id">
-                                        <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
-                                    </a>
-                                    <a asp-action="" asp-route-id="@item.Id">
-                                        <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
-                                    </a>
-                                    @*<a asp-action="" asp-route-id="@item.Id">
-                                <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
-                            </a>*@
+                                <div class="song-container row">
+
+                                    @* Audio Player *@
+                                    <div class="audio-container">
+                                        <audio class="audio-player" controls>
+                                            <source src="@item.AudioUrl" type="audio/mp3">
+                                        </audio>
+                                    </div>
+                                    @* Links *@
+                                    @*<div class="song-index-td">*@
+                                    <div class="song-index-links">
+                                        <a asp-action="Details" asp-route-id="@item.Id">
+                                            <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+                                        </a>
+                                        <a asp-action="" asp-route-id="@item.Id">
+                                            <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
+                                        </a>
+                                        @*<a asp-action="" asp-route-id="@item.Id">
+                                                <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
+                                            </a>*@
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+</script>

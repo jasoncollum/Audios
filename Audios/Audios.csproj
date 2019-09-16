@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.3.104.25" />
+    <PackageReference Include="jQuery.UI" Version="1.12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
@@ -16,8 +17,9 @@
 
 
   <ItemGroup>
+    <Folder Include="Keys\" />
     <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\audio-files\" />
+    <Folder Include="wwwroot\audio-data\" />
     <Folder Include="wwwroot\svg\" />
   </ItemGroup>
 
