@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Amazon.S3;
 using Amazon;
 using Amazon.S3.Transfer;
+using Audios.Keys;
 
 namespace Audios.Controllers
 {
@@ -148,15 +149,27 @@ namespace Audios.Controllers
                 {
                     if (file != null)
                     {
-                        var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot",
-                        "images", file.FileName);
-                        artist.ImageUrl = "/images/" + file.FileName;
+                        //var path = Path.Combine(
+                        //Directory.GetCurrentDirectory(), "wwwroot",
+                        //"images", file.FileName);
+                        //artist.ImageUrl = "/images/" + file.FileName;
 
-                        using (var stream = new FileStream(path, FileMode.Create))
+                        //using (var stream = new FileStream(path, FileMode.Create))
+                        //{
+                        //    await file.CopyToAsync(stream);
+                        //}
+
+                        //AWS
+                        try
                         {
-                            await file.CopyToAsync(stream);
+                            await UploadFileToS3(file);
                         }
+                        catch (Exception ex)
+                        {
+                            return NotFound();
+                        }
+
+                        artist.ImageUrl = $"https://{BucketInfo.Bucket}.s3.us-east-2.amazonaws.com/{file.FileName}";
                     }
 
                     _context.Update(artist);
