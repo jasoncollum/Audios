@@ -341,3 +341,5 @@ healthchecksdb
 
 # wwwroot/audio folder
 wwwroot/audio-files/
+
+audio-data/
