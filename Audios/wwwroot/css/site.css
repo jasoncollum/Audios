@@ -60,6 +60,36 @@ body {
 
 /* Custom styles
 -------------------------------------------------- */
+/*body {
+    width: 100%;
+    height: 100vh;
+    /*margin: 0 auto;
+    /*position: relative;
+    background-image: url("../images/audios-landing.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.landing-message {
+    margin: 50px 0 0 100px;
+}*/
+
+.hero-image img {
+    width: 100%;
+    display: block;
+}
+
+.hero-image {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    z-index: -1;
+}
+
 .nav-greeting {
     margin-top: 3px;
 }
