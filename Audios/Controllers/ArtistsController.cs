@@ -78,27 +78,27 @@ namespace Audios.Controllers
                     }
                     else
                     {
-                        var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot",
-                        "images", file.FileName);
-                        artist.ImageUrl = "/images/" + file.FileName;
+                        //var path = Path.Combine(
+                        //Directory.GetCurrentDirectory(), "wwwroot",
+                        //"images", file.FileName);
+                        //artist.ImageUrl = "/images/" + file.FileName;
 
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
+                        //using (var stream = new FileStream(path, FileMode.Create))
+                        //{
+                        //    await file.CopyToAsync(stream);
+                        //}
 
                         //AWS
-                        //try
-                        //{
-                        //    await UploadFileToS3(file);
-                        //}
-                        //catch(Exception ex)
-                        //{
-                        //    return NotFound();
-                        //}
+                        try
+                        {
+                            await UploadFileToS3(file);
+                        }
+                        catch (Exception ex)
+                        {
+                            return NotFound();
+                        }
 
-                        //artist.ImageUrl = $"https://{BucketInfo.Bucket}.s3.us-east-2.amazonaws.com/{file.FileName}";
+                        artist.ImageUrl = $"https://{BucketInfo.Bucket}.s3.us-east-2.amazonaws.com/{file.FileName}";
                     }
 
 
@@ -212,24 +212,24 @@ namespace Audios.Controllers
             return _context.Artist.Any(e => e.Id == id);
         }
 
-        //public async Task UploadFileToS3(IFormFile file)
-        //{
-        //    using (var client = new AmazonS3Client(BucketInfo.AWSKey, BucketInfo.AWSSKey, RegionEndpoint.USEast2))
-        //    {
-        //        using (var newMemoryStream = new MemoryStream())
-        //        {
-        //            file.CopyTo(newMemoryStream);
-        //            var uploadRequest = new TransferUtilityUploadRequest
-        //            {
-        //                InputStream = newMemoryStream,
-        //                Key = file.FileName,
-        //                BucketName = BucketInfo.Bucket,
-        //                CannedACL = S3CannedACL.PublicRead
-        //            };
-        //            var fileTransferUtility = new TransferUtility(client);
-        //            await fileTransferUtility.UploadAsync(uploadRequest);
-        //        }
-        //    }
-        //}
+        public async Task UploadFileToS3(IFormFile file)
+        {
+            using (var client = new AmazonS3Client(BucketInfo.AWSKey, BucketInfo.AWSSKey, RegionEndpoint.USEast2))
+            {
+                using (var newMemoryStream = new MemoryStream())
+                {
+                    file.CopyTo(newMemoryStream);
+                    var uploadRequest = new TransferUtilityUploadRequest
+                    {
+                        InputStream = newMemoryStream,
+                        Key = file.FileName,
+                        BucketName = BucketInfo.Bucket,
+                        CannedACL = S3CannedACL.PublicRead
+                    };
+                    var fileTransferUtility = new TransferUtility(client);
+                    await fileTransferUtility.UploadAsync(uploadRequest);
+                }
+            }
+        }
     }
 }
