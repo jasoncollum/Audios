@@ -69,15 +69,17 @@
                     </div>
                 </div>
                 @* Playlist dropdown *@
-            <div id="ddAdd-@item.Id" class="hide">
-                <div id="dd-@item.Id" class="song-index-dropdown">
-                    <input hidden name="songId" value="@item.Id" />
-                    <select name="PlaylistId" class="form-control" asp-items="ViewBag.Playlist">
-                        <option selected disabled>Add to a playlist</option>
-                    </select>
+            <form asp-action="AddToPlaylist" asp-controller="Playlists">
+                <div id="ddAdd-@item.Id" class="hide">
+                    <div id="dd-@item.Id" class="song-index-dropdown">
+                        <input hidden name="songId" value="@item.Id" />
+                        <select id="playlistId" name="playlistId" class="form-control" asp-items="ViewBag.Playlist">
+                            <option selected disabled>Add to a playlist</option>
+                        </select>
+                    </div>
+                    <input type="submit" class="add-it" value="Add it!" />
                 </div>
-                <a class="add-it" asp-action="AddToPlaylist" asp-controller="Playlist">Add it!</a>
-            </div>
+            </form>
             </div>
                 }
             </div>

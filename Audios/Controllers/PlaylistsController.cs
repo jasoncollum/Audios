@@ -160,6 +160,30 @@ namespace Audios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: Playlists/AddToPlaylist/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+            //CREATE NEW PLAYLIST SONG...
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToPlaylist(string playlistId, int songId)
+        {
+            int playlist_id = Int32.Parse(playlistId);
+            var playlistSongs = _context.PlaylistSong.Where(ps => ps.PlaylistId == playlist_id);
+            int trackNum = playlistSongs.Count() + 1;
+
+            var newPlaylistSong = new PlaylistSong()
+            {
+                PlaylistId = playlist_id,
+                SongId = songId,
+                TrackNumber = trackNum
+            };
+
+            _context.Add(newPlaylistSong);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Songs");
+        }
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         private bool PlaylistExists(int id)
