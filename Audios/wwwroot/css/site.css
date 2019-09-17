@@ -79,10 +79,6 @@ body {
     margin-top: 3px;
 }
 
-.add-song-plus {
-    margin: 12px;
-}
-
 #audios-logo {
     height: 30px;
     width: 30px;
@@ -92,6 +88,10 @@ body {
     border-top: none;
     border-left: none;
     border-right: none;
+}
+
+.add-song-plus {
+    margin: 12px;
 }
 
 #add-song {
@@ -217,5 +217,10 @@ audio:focus {
 .playlist-arrow {
     transform: rotate(270deg);
 }
-/* --- drap drop styling --- */
+
+/* Playlist */
+.playlist-card a {
+    color: white;
+    text-decoration: none !important;
+}
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Audios.Data;
 using Audios.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Audios.Controllers
 {
@@ -15,10 +16,12 @@ namespace Audios.Controllers
     public class PlaylistsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PlaylistsController(ApplicationDbContext context)
+        public PlaylistsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Playlists
@@ -61,6 +64,9 @@ namespace Audios.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,ApplicationUserId")] Playlist playlist)
         {
+            var user = await GetCurrentUserAsync();
+
+            ModelState.Remove("UserId");
             if (ModelState.IsValid)
             {
                 _context.Add(playlist);
@@ -153,6 +159,8 @@ namespace Audios.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         private bool PlaylistExists(int id)
         {
