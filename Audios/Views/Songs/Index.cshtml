@@ -19,6 +19,11 @@
                             <img src="~/svg/plus-solid.svg" id="add-song">
                         </a>
                     </p>
+                    <div class="new-playlist-link">
+                        <a asp-controller="Playlists" asp-action="Create">
+                            create a new playlist
+                        </a>
+                    </div>
                 </div>
 
                 @if (ViewBag.exists == true)
@@ -67,8 +72,8 @@
         <div class="col-md song-column">
             @*PLAYLIST*@
 
-            @* ...This is the targe div... ---------------------------------------------- *@
-            <div class="playlist-wrapper row">
+            @* ...This is the target div... ---------------------------------------------- *@
+            <div hidden class="playlist-wrapper row">
                 <div class="container row song-index-playlist">
                     <h2 class="chrome-grey">Playlist</h2>
 
