@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Audios.Data;
 using Audios.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Audios.Controllers
 {
+    [Authorize]
     public class PlaylistsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -66,7 +68,7 @@ namespace Audios.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", playlist.ApplicationUserId);
-            return View(playlist);
+            return RedirectToAction("Index", "Songs");
         }
 
         // GET: Playlists/Edit/5
