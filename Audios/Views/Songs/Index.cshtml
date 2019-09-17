@@ -63,6 +63,12 @@
                                 </div>
                             </div>
                         </div>
+                        @* Playlist dropdown *@
+                        <div>
+                            <select name="Playlist" class="form-control" asp-items="ViewBag.Playlist">
+                                <option selected disabled>Add to a playlist</option>
+                            </select>
+                        </div>
                     </div>
                 }
             </div>

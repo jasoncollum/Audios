@@ -42,6 +42,7 @@ namespace Audios.Controllers
                                                   || s.Vocal.Type.Contains(searchInput)
                                                   || s.SearchWords.Contains(searchInput));
 
+                //ViewData["Playlist"] = new SelectList(_context.Playlist, "Id", "Name");
                 return View(await filteredSongs.ToListAsync());
             }
             else
@@ -50,8 +51,12 @@ namespace Audios.Controllers
                 var songs = _context.Song
                 .Include(s => s.Artist)
                 .Include(s => s.Vocal);
+
                 ViewData["exists"] = exists;
                 ViewData["message"] = message;
+
+                var pl = _context.Playlist;
+                ViewData["Playlist"] = new SelectList(_context.Playlist, "Id", "Name");
                 return View(await songs.ToListAsync());
             }
         }
