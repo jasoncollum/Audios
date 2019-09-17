@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md song-column">
             @*SONG LIST*@
-            <div class="songlist-wrapper row">
+            <div id="songlist-container" class="songlist-wrapper row">
                 <div class="container row song-index-audios">
                     <h2 class="chrome-grey">Audios</h2>
 
@@ -24,11 +24,11 @@
                             create a new playlist
                         </a>
                     </p>
-                    <p class="add-to-playlist-link">
+                    @*<p class="add-to-playlist-link">
                         <a asp-controller="Playlists" asp-action="Add">
                             add songs to playlist
                         </a>
-                    </p>
+                    </p>*@
                 </div>
 
                 @if (ViewBag.exists == true)
@@ -37,45 +37,48 @@
                 }
                 @foreach (var item in Model)
                 {
-                    <div id="@item.Id" class="container song-image-container row">
-                        @* Artist Image *@
+            <div id="@item.Id" class="container song-image-container row">
+                @* Artist Image *@
 
-                        <img class="artist-image" src="@item.Artist.ImageUrl" />
-                        <div class="text-and-player">
-                            <div class="player-text">
-                                <p class="title-artist">@item.Title  / @item.Artist.Name</p>
-                            </div>
-                            <div class="song-container row">
+                <img class="artist-image" src="@item.Artist.ImageUrl" />
+                <div class="text-and-player">
+                    <div class="player-text">
+                        <p class="title-artist">@item.Title  / @item.Artist.Name</p>
+                    </div>
+                    <div class="song-container row">
 
-                                @* Audio Player *@
-                                <div class="audio-container">
-                                    <audio class="audio-player" controls>
-                                        <source src="@item.AudioUrl" type="audio/mp3">
-                                    </audio>
-                                </div>
-                                @* Links *@
-                                @*<div class="song-index-td">*@
-                                <div class="song-index-links">
-                                    <a asp-action="Details" asp-route-id="@item.Id">
-                                        <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
-                                    </a>
-                                    <a asp-action="" asp-route-id="@item.Id">
-                                        <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
-                                    </a>
-                                    @*<a asp-action="" asp-route-id="@item.Id">
-                                            <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
-                                        </a>*@
-                                </div>
-                            </div>
+                        @* Audio Player *@
+                        <div class="audio-container">
+                            <audio class="audio-player" controls>
+                                <source src="@item.AudioUrl" type="audio/mp3">
+                            </audio>
                         </div>
-                        @* Playlist dropdown *@
-                        <div>
-                            <input hidden name="songId" value="@item.Id"/>
-                            <select name="PlaylistId" class="form-control" asp-items="ViewBag.Playlist">
-                                <option selected disabled>Add to a playlist</option>
-                            </select>
+                        @* Links *@
+                        @*<div class="song-index-td">*@
+                        <div class="song-index-links">
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+                            </a>
+                            <button class="show-playlist-dropdown">
+                                <img id="icon-@item.Id" class="song-index-icon" src="~/svg/arrow-circle-down-solid.svg">
+                            </button>
+                            @*<a asp-action="" asp-route-id="@item.Id">
+                        <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
+                    </a>*@
                         </div>
                     </div>
+                </div>
+                @* Playlist dropdown *@
+            <div id="ddAdd-@item.Id" class="hide">
+                <div id="dd-@item.Id" class="song-index-dropdown">
+                    <input hidden name="songId" value="@item.Id" />
+                    <select name="PlaylistId" class="form-control" asp-items="ViewBag.Playlist">
+                        <option selected disabled>Add to a playlist</option>
+                    </select>
+                </div>
+                <a class="add-it" asp-action="AddToPlaylist" asp-controller="Playlist">Add it!</a>
+            </div>
+            </div>
                 }
             </div>
         </div>
@@ -126,7 +129,7 @@
                                         <a asp-action="Details" asp-route-id="@item.Id">
                                             <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
                                         </a>
-                                        <a asp-action="" asp-route-id="@item.Id">
+                                        <a asp-action="">
                                             <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
                                         </a>
                                         @*<a asp-action="" asp-route-id="@item.Id">
@@ -143,6 +146,12 @@
     </div>
 </div>
 
-<script>
-
-</script>
+@*<script>
+    const songlistContainer = document.querySelector("#songlist-container");
+    songlistContainer.addEventListener('click', (e) => {
+        if (e.target.className === "show-playlist-dropdown") {
+            const targetDiv = document.querySelector(`dd-${e.target.id}`);
+            targetDiv.classList.remove("hide");
+        }
+    });
+</script>*@
