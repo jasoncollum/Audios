@@ -71,9 +71,9 @@ namespace Audios.Controllers
             {
                 _context.Add(playlist);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", playlist.ApplicationUserId);
+          
             return RedirectToAction("Index", "Songs");
         }
 

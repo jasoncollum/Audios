@@ -19,11 +19,16 @@
                             <img src="~/svg/plus-solid.svg" id="add-song">
                         </a>
                     </p>
-                    <div class="new-playlist-link">
+                    <p class="new-playlist-link">
                         <a asp-controller="Playlists" asp-action="Create">
                             create a new playlist
                         </a>
-                    </div>
+                    </p>
+                    <p class="add-to-playlist-link">
+                        <a asp-controller="Playlists" asp-action="Add">
+                            add songs to playlist
+                        </a>
+                    </p>
                 </div>
 
                 @if (ViewBag.exists == true)
@@ -65,7 +70,8 @@
                         </div>
                         @* Playlist dropdown *@
                         <div>
-                            <select name="Playlist" class="form-control" asp-items="ViewBag.Playlist">
+                            <input hidden name="songId" value="@item.Id"/>
+                            <select name="PlaylistId" class="form-control" asp-items="ViewBag.Playlist">
                                 <option selected disabled>Add to a playlist</option>
                             </select>
                         </div>
