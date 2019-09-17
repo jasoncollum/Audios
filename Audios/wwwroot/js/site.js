@@ -82,3 +82,14 @@ function sortableDragEnd() {
     TweenLite.set(t.kids, { yPercent: 0, overwrite: "all" });
     TweenLite.set(t, { y: 0, color: "" });
 } 
+
+//Song Index JS -------------------------------------------------
+const songlistContainer = document.querySelector('#songlist-container');
+songlistContainer.addEventListener('click', (e) => {
+    console.log(e);
+    if (e.target.className === 'song-index-icon') {
+        const targetId = e.target.id.split('-');
+        const targetDiv = document.querySelector(`#ddAdd-${targetId[1]}`);
+        targetDiv.classList.remove('hide');
+    }
+});

@@ -214,8 +214,21 @@ audio:focus {
     width: 18px;
 }
 
-.playlist-arrow {
-    transform: rotate(270deg);
+.show-playlist-dropdown {
+    /*transform: rotate(270deg);*/
+}
+
+.song-index-dropdown {
+    border: .5px solid red;
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}
+
+.add-it {
+    border: .5px solid green;
 }
 
 /* Playlist */
