@@ -205,20 +205,32 @@ namespace Audios.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> UpdateTrackNumbers(int playlistSongId)
         //{
-            //var playlistSongs = _context.PlaylistSong.Where(ps => ps.Id == playlistSongId);
-            //int trackNum = playlistSongs.Count() + 1;
+        //var playlistSongs = _context.PlaylistSong.Where(ps => ps.Id == playlistSongId);
+        //int trackNum = playlistSongs.Count() + 1;
 
-            //var newPlaylistSong = new PlaylistSong()
-            //{
-            //    PlaylistId = playlistId,
-            //    SongId = songId,
-            //    TrackNumber = trackNum
-            //};
+        //var newPlaylistSong = new PlaylistSong()
+        //{
+        //    PlaylistId = playlistId,
+        //    SongId = songId,
+        //    TrackNumber = trackNum
+        //};
 
-            //_context.(newPlaylistSong);
-            //await _context.SaveChangesAsync();
+        //_context.(newPlaylistSong);
+        //await _context.SaveChangesAsync();
         //    return RedirectToAction("Index", "Songs");
         //}
+
+        // POST: Playlists/RemovePlaylistSong/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemovePlaylistSong(int id)
+        {
+            var playlistSong = await _context.PlaylistSong.FindAsync(id);
+            int detailId = playlistSong.PlaylistId;
+            _context.PlaylistSong.Remove(playlistSong);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new { id = detailId } );
+        }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 

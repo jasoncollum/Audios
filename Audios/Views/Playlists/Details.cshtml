@@ -48,22 +48,26 @@
 
                                 @* Audio Player *@
                                 <div class="audio-container">
-                                    <audio class="audio-player" controls>
+                                    <audio class="audio-player" controls controlsList="nodownload">
                                         <source src="@item.Song.AudioUrl" type="audio/mp3">
                                     </audio>
                                 </div>
                                 @* Links*@
                                 <div class="song-index-td">
                                     <div class="song-index-links">
-                                        <a asp-action="Details" asp-route-id="@item.Id">
-                                            <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+                                        @*<a asp-action="Details" asp-route-id="@item.Id">
+            <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+        </a>
+        <a asp-action="">
+            <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
+        </a>*@
+                                   
+                                        <a asp-action="RemovePlaylistSong" asp-controller="Playlists" asp-route-id="@item.Id">
+                                            <img class="song-index-icon" src="~/svg/minus-circle-solid.svg">
                                         </a>
-                                        <a asp-action="">
-                                            <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
-                                        </a>
-                                        <a asp-action="" asp-route-id="@item.Id">
-                                            <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
-                                        </a>
+
+                                        <img class="song-index-icon updown" src="~/svg/up-down-solid.svg">
+                                 
                                     </div>
                                 </div>
                             </div>
