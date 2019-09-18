@@ -14,8 +14,12 @@ namespace Audios.Models
         [Required]
         public int PlaylistId { get; set; }
 
+        public Playlist Playlist { get; set; }
+
         [Required]
         public int SongId { get; set; }
+
+        public Song Song { get; set; }
 
         [Required]
         public int TrackNumber { get; set; }

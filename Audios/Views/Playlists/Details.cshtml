@@ -1,30 +1,83 @@
-﻿@model Audios.Models.Playlist
+﻿@model IEnumerable<Audios.Models.PlaylistSong>
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+@*<h1>Details</h1>*@
 
 <div>
-    <h4>Playlist</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ApplicationUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationUser.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <h4>@ViewBag.Playlist.Name</h4>
+    @*<dl class="row">
+            <dd hidden class="col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.Id)
+            </dd>
+        </dl>*@
+    <div class="col-md song-column">
+        @*PLAYLIST*@
+
+        @* ...This is the target div... ---------------------------------------------- *@
+        <div class="playlist-wrapper row">
+            <div class="container row song-index-playlist">
+                <h2 class="chrome-grey">Playlist</h2>
+
+                <p class="add-song-plus">
+                    <a asp-controller="Artists" asp-action="Create">
+                        <img src="~/svg/plus-solid.svg" id="add-song">
+                    </a>
+                </p>
+            </div>
+
+            @*@if (ViewBag.exists == true)
+                {
+                    <p class="exists-message">@ViewBag.message</p>
+                }*@
+
+            <div id="song-cards">
+                @foreach (var item in Model)
+                {
+                    <div class="container song-image-container row song-card">
+                        @* Artist Image *@
+
+                        <img class="artist-image" src="@item.Song.Artist.ImageUrl" />
+                        <div class="text-and-player">
+                            <div class="player-text">
+                                <p class="title-artist">@item.Song.Title  / @item.Song.Artist.Name</p>
+                            </div>
+                            <div class="song-container row">
+
+                                @* Audio Player *@
+                                <div class="audio-container">
+                                    <audio class="audio-player" controls>
+                                        <source src="@item.Song.AudioUrl" type="audio/mp3">
+                                    </audio>
+                                </div>
+                                @* Links*@
+                                <div class="song-index-td">
+                                    <div class="song-index-links">
+                                        <a asp-action="Details" asp-route-id="@item.Id">
+                                            <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+                                        </a>
+                                        <a asp-action="">
+                                            <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
+                                        </a>
+                                        <a asp-action="" asp-route-id="@item.Id">
+                                            <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+    <div>
+        @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+        <a asp-action="Index">Playlists</a>
+    </div>
 </div>
