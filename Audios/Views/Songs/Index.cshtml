@@ -25,62 +25,70 @@
                         </a>
                     </p>
                     @*<p class="add-to-playlist-link">
-                        <a asp-controller="Playlists" asp-action="Add">
-                            add songs to playlist
-                        </a>
-                    </p>*@
+                <a asp-controller="Playlists" asp-action="Add">
+                    add songs to playlist
+                </a>
+            </p>*@
                 </div>
 
                 @if (ViewBag.exists == true)
                 {
                     <p class="exists-message">@ViewBag.message</p>
                 }
+                @if (ViewBag.noInstrumentals == true)
+                {
+                    <p class="exists-message">@ViewBag.instMessage</p>
+                }
+                @if (ViewBag.noMaleFemaleVocals == true)
+                {
+                    <p class="exists-message">@ViewBag.mfMessage</p>
+                }
                 @foreach (var item in Model)
                 {
-            <div id="@item.Id" class="container song-image-container row">
-                @* Artist Image *@
+                    <div id="@item.Id" class="container song-image-container row">
+                        @* Artist Image *@
 
-                <img class="artist-image" src="@item.Artist.ImageUrl" />
-                <div class="text-and-player">
-                    <div class="player-text">
-                        <p class="title-artist">@item.Title  / @item.Artist.Name</p>
-                    </div>
-                    <div class="song-container row">
+                        <img class="artist-image" src="@item.Artist.ImageUrl" />
+                        <div class="text-and-player">
+                            <div class="player-text">
+                                <p class="title-artist">@item.Title  / @item.Artist.Name</p>
+                            </div>
+                            <div class="song-container row">
 
-                        @* Audio Player *@
-                        <div class="audio-container">
-                            <audio class="audio-player" controls controlsList="nodownload">
-                                <source src="@item.AudioUrl" type="audio/mp3">
-                            </audio>
+                                @* Audio Player *@
+                                <div class="audio-container">
+                                    <audio class="audio-player" controls controlsList="nodownload">
+                                        <source src="@item.AudioUrl" type="audio/mp3">
+                                    </audio>
+                                </div>
+                                @* Links *@
+                                @*<div class="song-index-td">*@
+                                <div class="song-index-links">
+                                    <a asp-action="Details" asp-route-id="@item.Id">
+                                        <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
+                                    </a>
+                                    <button class="show-playlist-dropdown">
+                                        <img id="icon-@item.Id" class="song-index-icon" src="~/svg/arrow-circle-down-solid.svg">
+                                    </button>
+                                    @*<a asp-action="" asp-route-id="@item.Id">
+                                <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
+                            </a>*@
+                                </div>
+                            </div>
                         </div>
-                        @* Links *@
-                        @*<div class="song-index-td">*@
-                        <div class="song-index-links">
-                            <a asp-action="Details" asp-route-id="@item.Id">
-                                <img class="song-index-icon" src="~/svg/info-circle-solid.svg">
-                            </a>
-                            <button class="show-playlist-dropdown">
-                                <img id="icon-@item.Id" class="song-index-icon" src="~/svg/arrow-circle-down-solid.svg">
-                            </button>
-                            @*<a asp-action="" asp-route-id="@item.Id">
-                        <img class="song-index-icon" src="~/svg/plus-circle-solid.svg">
-                    </a>*@
-                        </div>
+                        @* Playlist dropdown *@
+                        <form asp-action="AddToPlaylist" asp-controller="Playlists">
+                            <div id="ddAdd-@item.Id" class="hide">
+                                <div id="dd-@item.Id" class="song-index-dropdown">
+                                    <input hidden name="songId" value="@item.Id" />
+                                    <select id="playlistId" name="playlistId" class="form-control" asp-items="ViewBag.Playlist">
+                                        <option selected disabled>Add to a playlist</option>
+                                    </select>
+                                </div>
+                                <input type="submit" class="add-it" value="Add it!" />
+                            </div>
+                        </form>
                     </div>
-                </div>
-                @* Playlist dropdown *@
-            <form asp-action="AddToPlaylist" asp-controller="Playlists">
-                <div id="ddAdd-@item.Id" class="hide">
-                    <div id="dd-@item.Id" class="song-index-dropdown">
-                        <input hidden name="songId" value="@item.Id" />
-                        <select id="playlistId" name="playlistId" class="form-control" asp-items="ViewBag.Playlist">
-                            <option selected disabled>Add to a playlist</option>
-                        </select>
-                    </div>
-                    <input type="submit" class="add-it" value="Add it!" />
-                </div>
-            </form>
-            </div>
                 }
             </div>
         </div>

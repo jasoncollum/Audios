@@ -32,10 +32,45 @@ namespace Audios.Controllers
             //List search results
             if (!String.IsNullOrEmpty(searchInput))
             {
-                var songs = from s in _context.Song
+                var songs = _context.Song
                             .Include(s => s.Artist)
-                            .Include(s => s.Vocal)
-                               select s;
+                            .Include(s => s.Vocal);
+
+                if (searchInput.ToLower() == "male")
+                {
+                    var maleVocalSongs = songs.Where(s => s.Vocal.Type == "Male");
+                    return View(await maleVocalSongs.ToListAsync());
+                }
+
+                if (searchInput.ToLower() == "male/female" || searchInput.ToLower() == "male female")
+                {
+                    var maleFemaleVocalSongs = songs.Where(s => s.Vocal.Type == "Male/Female");
+                    if (maleFemaleVocalSongs.Any())
+                    {
+                        return View(await maleFemaleVocalSongs.ToListAsync());
+                    }
+                    else
+                    {
+                        ViewBag.noMaleFemaleVocals = true;
+                        ViewBag.mfMessage = "There are currently no songs that feature both Male and Female vocals in the Audios database";
+                        return View(await songs.ToListAsync());
+                    }
+                }
+
+                if (searchInput == "instrumental" || searchInput == "instrumentals" || searchInput == "inst")
+                {
+                    var instrumentalSongs = songs.Where(s => s.Vocal.Type == "None");
+                    if (instrumentalSongs.Any())
+                    {
+                        return View(await instrumentalSongs.ToListAsync());
+                    }
+                    else
+                    {
+                        ViewBag.noInstrumentals = true;
+                        ViewBag.instMessage = "There are currently no Instrumentals in the Audios database";
+                        return View(await songs.ToListAsync());
+                    }
+                }
 
                 var filteredSongs = songs.Where(s => s.Title.Contains(searchInput) 
                                                   || s.Artist.Name.Contains(searchInput)
