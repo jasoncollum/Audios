@@ -61,13 +61,13 @@
         <a asp-action="">
             <img class="song-index-icon playlist-arrow" src="~/svg/arrow-circle-down-solid.svg">
         </a>*@
-                                        @* NEEDS PLAYLISTSONG *@
-                                        <a asp-action="RemovePlaylistSong" asp-route-id="@item.Id">
+                                   
+                                        <a asp-action="RemovePlaylistSong" asp-controller="Playlists" asp-route-id="@item.Id">
                                             <img class="song-index-icon" src="~/svg/minus-circle-solid.svg">
                                         </a>
-                                        
-                                            <img class="song-index-icon updown" src="~/svg/up-down-solid.svg">
-                                        
+
+                                        <img class="song-index-icon updown" src="~/svg/up-down-solid.svg">
+                                 
                                     </div>
                                 </div>
                             </div>
