@@ -42,12 +42,28 @@ namespace Audios.Controllers
             var playlist = await _context.Playlist
                 .Include(p => p.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            var playlistSongs = await _context.PlaylistSong
+                .Include(ps => ps.Song).ThenInclude(s => s.Artist)
+                .Include(ps => ps.Playlist)
+                .Where(ps => ps.PlaylistId == id).ToListAsync();
+
+            var artists = new List<Artist>();
+            
+            foreach(var ps in playlistSongs)
+            {
+                artists = await _context.Artist.Where(a => a.Id == ps.Song.ArtistId).ToListAsync();
+            }
+
+            
+
             if (playlist == null)
             {
                 return NotFound();
             }
 
-            return View(playlist);
+            ViewBag.Playlist = playlist;
+            return View(playlistSongs);
         }
 
         // GET: Playlists/Create
@@ -160,7 +176,7 @@ namespace Audios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: Playlists/AddToPlaylist/5
+        // POST: Playlists/AddToPlaylist/5, 13
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
             //CREATE NEW PLAYLIST SONG...
@@ -183,6 +199,26 @@ namespace Audios.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Songs");
         }
+
+        //UPDATE PLAYLISTSONG TRACKNUMBER...
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> UpdateTrackNumbers(int playlistSongId)
+        //{
+            //var playlistSongs = _context.PlaylistSong.Where(ps => ps.Id == playlistSongId);
+            //int trackNum = playlistSongs.Count() + 1;
+
+            //var newPlaylistSong = new PlaylistSong()
+            //{
+            //    PlaylistId = playlistId,
+            //    SongId = songId,
+            //    TrackNumber = trackNum
+            //};
+
+            //_context.(newPlaylistSong);
+            //await _context.SaveChangesAsync();
+        //    return RedirectToAction("Index", "Songs");
+        //}
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
