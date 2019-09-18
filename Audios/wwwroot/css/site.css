@@ -214,8 +214,10 @@ audio:focus {
     width: 18px;
 }
 
-.show-playlist-dropdown {
-    /*transform: rotate(270deg);*/
+.updown {
+    transform: rotate(90deg);
+    margin-left: 25px;
+    color: red;
 }
 
 .song-index-dropdown {
