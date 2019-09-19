@@ -19,11 +19,11 @@
                             <img src="~/svg/plus-solid.svg" id="add-song">
                         </a>
                     </p>
-                    <p class="new-playlist-link">
-                        <a asp-controller="Playlists" asp-action="Create">
-                            create a new playlist
-                        </a>
-                    </p>
+                        <p class="new-playlist-link">
+                            <a asp-controller="Playlists" asp-action="Create">
+                                create a new playlist
+                            </a>
+                        </p>
                     @*<p class="add-to-playlist-link">
                 <a asp-controller="Playlists" asp-action="Add">
                     add songs to playlist
@@ -81,7 +81,7 @@
                             <div id="ddAdd-@item.Id" class="hide">
                                 <div id="dd-@item.Id" class="song-index-dropdown">
                                     <input hidden name="songId" value="@item.Id" />
-                                    <select id="playlistId" name="playlistId" class="form-control" asp-items="ViewBag.Playlist">
+                                    <select id="playlistId" name="playlistId" class="form-control song-playlist-dropdown" asp-items="ViewBag.Playlist">
                                         <option selected disabled>Add to a playlist</option>
                                     </select>
                                 </div>

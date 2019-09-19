@@ -85,7 +85,11 @@ body {
 }
 
 .add-song-plus {
-    margin: 12px;
+    margin: 6px 12px 0 12px;
+}
+
+.new-playlist-link {
+    margin: 12px 0 0 185px; 
 }
 
 #add-song {
@@ -208,23 +212,45 @@ audio:focus {
     width: 18px;
 }
 
+.show-playlist-dropdown {
+    border: none;
+    background-color: transparent;
+}
+.show-playlist-dropdown:focus {
+    outline-style: none;
+}
+
 .updown {
     transform: rotate(90deg);
     margin-left: 25px;
-    color: red;
+    /*color: red;*/
 }
 
 .song-index-dropdown {
-    border: .5px solid red;
+    /*border: .5px solid red;*/
     display: inline-block;
 }
+    .song-index-dropdown:focus {
+        outline-style: none;
+    }
 
 .hide {
     display: none;
 }
 
+.song-playlist-dropdown {
+    font-size: 12px;
+    background-color: transparent;
+}
+    .song-playlist-dropdown:focus {
+        outline-style: none;
+    }
+
 .add-it {
-    border: .5px solid green;
+    font-size: 12px;
+    outline-style: none;
+    border: .5px solid lightgrey;
+    background-color: transparent;
 }
 
 /* Playlist */
@@ -232,4 +258,5 @@ audio:focus {
     color: white;
     text-decoration: none !important;
 }
+
 
