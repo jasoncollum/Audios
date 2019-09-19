@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Audios.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PlaylistsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,7 +23,7 @@ namespace Audios.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+        [Authorize]
         // GET: Playlists
         public async Task<IActionResult> Index()
         {
@@ -32,6 +32,7 @@ namespace Audios.Controllers
         }
 
         // GET: Playlists/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -67,6 +68,7 @@ namespace Audios.Controllers
         }
 
         // GET: Playlists/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
@@ -78,6 +80,7 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Name,ApplicationUserId")] Playlist playlist)
         {
             var user = await GetCurrentUserAsync();
@@ -94,6 +97,7 @@ namespace Audios.Controllers
         }
 
         // GET: Playlists/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -115,6 +119,7 @@ namespace Audios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ApplicationUserId")] Playlist playlist)
         {
             if (id != playlist.Id)
@@ -147,6 +152,7 @@ namespace Audios.Controllers
         }
 
         // GET: Playlists/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -168,6 +174,7 @@ namespace Audios.Controllers
         // POST: Playlists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var playlist = await _context.Playlist.FindAsync(id);
@@ -182,6 +189,7 @@ namespace Audios.Controllers
             //CREATE NEW PLAYLIST SONG...
         [HttpPost]
         //[ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> AddToPlaylist(string playlistId, int songId)
         {
             int playlist_id = Int32.Parse(playlistId);
@@ -223,6 +231,7 @@ namespace Audios.Controllers
         // POST: Playlists/RemovePlaylistSong/5
         //[HttpPost]
         //[ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> RemovePlaylistSong(int id)
         {
             var playlistSong = await _context.PlaylistSong.FindAsync(id);
@@ -232,8 +241,43 @@ namespace Audios.Controllers
             return RedirectToAction("Details", new { id = detailId } );
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        // GET: Playlists/Share/5
+        public async Task<IActionResult> Share(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var playlist = await _context.Playlist
+                .Include(p => p.ApplicationUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            var playlistSongs = await _context.PlaylistSong
+                .Include(ps => ps.Song).ThenInclude(s => s.Artist)
+                .Include(ps => ps.Playlist)
+                .Where(ps => ps.PlaylistId == id).ToListAsync();
+
+            var artists = new List<Artist>();
+
+            foreach (var ps in playlistSongs)
+            {
+                artists = await _context.Artist.Where(a => a.Id == ps.Song.ArtistId).ToListAsync();
+            }
+
+
+
+            if (playlist == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Playlist = playlist;
+            return View(playlistSongs);
+        }
+        [Authorize]
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        [Authorize]
         private bool PlaylistExists(int id)
         {
             return _context.Playlist.Any(e => e.Id == id);
