@@ -18,7 +18,7 @@
 
         @* ...This is the target div... ---------------------------------------------- *@
         <div class="playlist-wrapper row">
-            <div class="container row song-index-playlist">
+            @*<div class="container row song-index-playlist">
                 <h2 class="chrome-grey">Playlist</h2>
 
                 <p class="add-song-plus">
@@ -26,7 +26,7 @@
                         <img src="~/svg/plus-solid.svg" id="add-song">
                     </a>
                 </p>
-            </div>
+            </div>*@
 
             @*@if (ViewBag.exists == true)
                 {
@@ -82,6 +82,6 @@
     </div>
     <div>
         @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
-        <a asp-action="Index">Playlists</a>
+        @*<a asp-action="Index">Playlists</a>*@
     </div>
 </div>
